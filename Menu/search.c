@@ -2,7 +2,7 @@
 * Created by roberto on 3/5/21.
 */
 #include "search.h"
-void    results_search(char * from, char *to,
+void    results_search(char * from, char *to, char *date,
                        int * n_choices, char *** choices,
                        int max_length,
                        int max_rows)

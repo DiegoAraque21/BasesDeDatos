@@ -52,7 +52,7 @@ static void init_struct(_Windows *windows, __attribute__((unused)) _Panels *pane
     /* labels for forms placed in win_form */
     char *forms_search_choices[] = {
             "From: ",
-            "To:   "
+            "To:   ",
     };
     char *forms_bpass_choices[] = {
             "book Id: "
