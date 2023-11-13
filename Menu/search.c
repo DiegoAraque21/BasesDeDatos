@@ -7,7 +7,7 @@
 #include <string.h>
 #include <sql.h>
 #include <sqlext.h>
-#include "odbc.h"
+/* #include "odbc.h" */
 void    results_search(char * from, char *to, char *date,
                        int * n_choices, char *** choices,
                        int max_length,
@@ -24,14 +24,8 @@ void    results_search(char * from, char *to, char *date,
 {
     int i=0;
     int t=0;
+
     
-    /* CONNECT */
-    ret = odbc_connect(&env, &dbc);
-    if (!SQL_SUCCEEDED(ret)) {
-        return EXIT_FAILURE;
-    }
-
-
 
 }
 
