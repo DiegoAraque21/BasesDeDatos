@@ -304,4 +304,3 @@ void print_out(WINDOW *win,
     }
     (void) wrefresh(win);
 }
-

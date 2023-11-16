@@ -208,20 +208,15 @@ void loop(_Windows *windows, _Menus *menus,
                 out_highlight = 0;
                 for(i=0; i< rows_out_window ; i++)
                     (menus->out_win_choices)[i][0] = '\0';
-                (void)wclear(out_win);
+                (void)wclear(out_win); 
                 (void)form_driver(forms->search_form, REQ_VALIDATION);
                 tmpStr1 = field_buffer((forms->search_form_items)[1], 0);
                 tmpStr2 = field_buffer((forms->search_form_items)[3], 0);
                 tmpStr3 = field_buffer((forms->search_form_items)[5], 0);
                 results_search(tmpStr1, tmpStr2, tmpStr3, &n_out_choices, & (menus->out_win_choices),
-                               windows->cols_out_win-4, windows->rows_out_win-2);
+                               windows->cols_out_win-4, windows->rows_out_win-2, windows->msg_win);
                 print_out(out_win, menus->out_win_choices, n_out_choices,
-                          out_highlight, windows->out_title);
-                if ((bool)DEBUG) {
-                    (void)snprintf(buffer, 128, "FROM=%s, TO=%s , DATE=%s",  tmpStr1, tmpStr2, tmpStr3);
-                    write_msg(msg_win, buffer, -1, -1, windows->msg_title);
-                }
-
+                          out_highlight, windows->out_title); 
             }
             else if ((choice == SEARCH) && (focus == FOCUS_RIGHT)) {
                 (void)snprintf(buffer, 128, "msg=%s", (menus->out_win_choices)[out_highlight] );
