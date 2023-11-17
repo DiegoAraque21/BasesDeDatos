@@ -75,6 +75,13 @@ void loop(_Windows *windows, _Menus *menus,
     msg_win = windows->msg_win;
     rows_out_window = windows->terminal_nrows - 2 * windows->height_menu_win - 1;
 
+
+    /* array to store flight_id_1, flight_id_2 and num_connections in results_search */
+    /* for later use when right panel is on focus */
+    int** flights_ids_1 = (int**)malloc(100 * sizeof(int*));
+    int** flights_ids_2 = (int**)malloc(100 * sizeof(int*));
+    int** num_connections = (int**)malloc(100 * sizeof(int*));
+
     while ((bool) TRUE) {
         ch = getch(); /* get char typed by user */
         if ((bool)DEBUG) {
@@ -213,15 +220,14 @@ void loop(_Windows *windows, _Menus *menus,
                 tmpStr1 = field_buffer((forms->search_form_items)[1], 0);
                 tmpStr2 = field_buffer((forms->search_form_items)[3], 0);
                 tmpStr3 = field_buffer((forms->search_form_items)[5], 0);
-                results_search(tmpStr1, tmpStr2, tmpStr3, &n_out_choices, & (menus->out_win_choices),
-                               windows->cols_out_win-4, windows->rows_out_win-2, windows->msg_win);
+                results_search(tmpStr1, tmpStr2, tmpStr3, flights_ids_1, flights_ids_2, num_connections, 
+                                &n_out_choices, & (menus->out_win_choices), windows->cols_out_win-4, 
+                                windows->rows_out_win-2, windows->msg_win);
                 print_out(out_win, menus->out_win_choices, n_out_choices,
                           out_highlight, windows->out_title); 
             }
             else if ((choice == SEARCH) && (focus == FOCUS_RIGHT)) {
-                (void)snprintf(buffer, 128, "msg=%s", (menus->out_win_choices)[out_highlight] );
-                write_msg(msg_win,buffer,
-                          -1, -1, windows->msg_title);
+                details(flights_ids_1[out_highlight], flights_ids_2[out_highlight], num_connections[out_highlight], windows->msg_win);
             }
             else if ((choice == BPASS) && (focus == FOCUS_LEFT)) {
                 out_highlight = 0;

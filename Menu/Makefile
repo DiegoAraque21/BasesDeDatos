@@ -1,3 +1,17 @@
+export PGDATABASE:=flight
+export PGUSER :=alumnodb
+export PGPASSWORD :=alumnodb
+export PGCLIENTENCODING:=UTF8
+export PGHOST:=localhost
+
+DBNAME =$(PGDATABASE)
+PSQL = psql
+CREATEDB = createdb
+DROPDB = dropdb --if-exists
+PG_DUMP = pg_dump
+PG_RESTORE = pg_restore
+NUEVABASE = nuevabase
+
 CC = gcc -g
 CFLAGS = -Wall -Wextra -pedantic -ansi
 LDLIBS = -lodbc -lcurses -lpanel -lmenu -lform
@@ -8,7 +22,7 @@ HEADERS = odbc.h bpass.h  lmenu.h search.h windows.h loop.h odbc.h
 EXE = menu
 OBJ = $(EXE).o bpass.o   loop.o  search.o windows.o odbc.o
 
-all : $(EXE)
+all : query1 $(EXE)
 
 # compile all files ending in *.c
 %.o: %.c $(HEADERS)
@@ -25,6 +39,15 @@ clean:
 run:
 	./$(EXE)
 
+run_valgrind:
+	valgrind --leak-check=full ./$(EXE)
+
+query1:
+	@echo query-1: "please insert here a short description" | tee query1.log
+	@cat query4.sql | $(PSQL) | tee -a query4.log
+
 valgrind:
 	valgrind --leak-check=full ./$(EXE)
+
+
 
