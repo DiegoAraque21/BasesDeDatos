@@ -22,7 +22,7 @@ HEADERS = odbc.h bpass.h  lmenu.h search.h windows.h loop.h odbc.h
 EXE = menu
 OBJ = $(EXE).o bpass.o   loop.o  search.o windows.o odbc.o
 
-all : query1 $(EXE)
+all : dropdb createdb restore query1 $(EXE)
 
 # compile all files ending in *.c
 %.o: %.c $(HEADERS)
@@ -49,5 +49,22 @@ query1:
 valgrind:
 	valgrind --leak-check=full ./$(EXE)
 
-
-
+mycomando:
+	@echo aqui va una descripcion
+	@cat myfichero.sql | psql mibasededatos
+createdb:
+	@echo Creando BBDD
+	@$(CREATEDB)
+dropdb:
+	@echo Eliminando BBDD
+	@$(DROPDB) $(DBNAME)
+dump:
+	@echo creando dumpfile
+	@$(PG_DUMP) > $(DBNAME).sql
+restore:
+	@echo restore data base
+	@cat $(DBNAME).sql | $(PSQL)  
+psql: shell
+shell:
+	@echo create psql shell
+	@$(PSQL) 
